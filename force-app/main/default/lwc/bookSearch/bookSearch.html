@@ -1,0 +1,50 @@
+<template>
+	<!--c-datatable 
+    key-field="id"
+    columns={columns} 
+    records={records}
+    onbooksearch={handleSearch}
+    searchable
+    >
+</c-datatable-->
+	<div style="background: aliceblue">
+		<div class="table__header">
+			<lightning-layout multiple-rows>
+				<lightning-layout-item size="4" padding="horizontal-small" small-device-size="1" medium-device-size="2"
+					large-device-size="2">
+                    <br/>
+					<p style="margin-top:0.25rem;">Enter the Book Name </p>
+				</lightning-layout-item>
+				<lightning-layout-item size="12" small-device-size="3" medium-device-size="6" large-device-size="5">
+					<lightning-input type="text" value={searchText} data-search-input 
+						name="Search" onchange={nameChange} ></lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item size="5" small-device-size="2" medium-device-size="2" large-device-size="2">
+                    <br/>
+                    <p></p>
+					<lightning-button style="margin-left:1rem;" variant="brand" label="Search" title="Search Books" onclick={handleSearch}>
+					</lightning-button>
+				</lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small" small-device-size="3" medium-device-size="6"
+					large-device-size="2">
+				</lightning-layout-item>
+			</lightning-layout>
+		</div>
+        <div if:true={loading} class="backgroundInverse">
+            <lightning-spinner alternative-text="Loading" variant="inverse"></lightning-spinner>
+        </div>
+		<template if:true={loadTable}>
+            
+			<div class={tableStyle} style="margin:1.5rem;">
+				<lightning-datatable key-field="id" data={records} columns={columns}
+					hide-checkbox-column="true">
+				</lightning-datatable>
+			</div>
+		</template>
+
+		<div if:false={loadTable}
+			class="slds-align_absolute-center slds-p-around_small slds-border_bottom error-msg">
+			No matching records found
+		</div>
+	</div>
+</template>
